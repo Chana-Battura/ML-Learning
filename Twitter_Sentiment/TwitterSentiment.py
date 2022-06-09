@@ -11,7 +11,7 @@ access_token_secret = "_____KEY_____"
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-api = tweepy.Client("AAAAAAAAAAAAAAAAAAAAAITodQEAAAAA3R1b2fnWyUG98I0AOtx5KFW1gJo%3DCzSlgSIdt8EkDWdnFIkKOl2CaAcKV2Kd9rgnZ8n9flUD155JVC", auth)
+api = tweepy.Client("_____KEY_____", auth)
 
 f = open("tweets.csv", "w", encoding="UTF8")
 writer = csv.writer(f)
