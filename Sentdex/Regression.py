@@ -50,13 +50,16 @@ df["PCT_Change"] = (df["Adj. Close"]-df["Adj. Open"]) / df["Adj. Open"] * 100.0
 # the other values require it to be a feature to find them   #
 ##############################################################
 
+# Features We Chose Must Impact Price
+# Thus      Price           X            X           X
+#So honestly, just adjusted close is truly the only needed feature
 df = df[["Adj. Close", "Adj. Volume", "HL_PCT", "PCT_Change"]]
 
 
 forecast_col = "Adj. Close" #predict next adj. close as that is the price
 df.fillna(-99999, inplace=True) #This just will be seen as outlier better than deleting col
 
-forecast_out = int(math.ceil(0.01*len(df))) #Predicting ten percent of the dataframe
+forecast_out = int(math.ceil(0.10*len(df))) #Predicting ten percent of the dataframe
 print(forecast_out)
 
 df["Label"] = df[forecast_col].shift(-forecast_out) #each label will be adjusted close price of ten percent days later
@@ -66,7 +69,7 @@ df["Label"] = df[forecast_col].shift(-forecast_out) #each label will be adjusted
 X = np.array(df.drop(["Label"],1))
 X = preprocessing.scale(X)
 X_lately = X[-forecast_out:]
-X = X[:-forecast_out:]
+X = X[:-forecast_out]
 
 df.dropna(inplace=True) #Removing the NaN values
 Y = np.array(df["Label"])
@@ -76,9 +79,9 @@ X_train, X_test, Y_train, Y_Test = model_selection.train_test_split(X, Y, test_s
 '''clf = LinearRegression(n_jobs=-1) #n_jobs=-1 means it will use all the threads
 clf.fit(X_train, Y_train)
 
-with open("linearregression.pickle", "wb") as f:
-    pickle.dump(clf, f)'''
-
+with open("Sentdex\linearregression.pickle", "wb") as f:
+    pickle.dump(clf, f)
+'''
 pickle_in = open("Sentdex/linearregression.pickle", "rb")
 clf = pickle.load(pickle_in)
 
