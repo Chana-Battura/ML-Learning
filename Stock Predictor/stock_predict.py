@@ -5,7 +5,6 @@ from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
-import tweepy
 from textblob import TextBlob
 
 dates = []
