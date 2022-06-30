@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from matplotlib import style
 import numpy as np
 from pandas import NA
-from regex import P
 
 style.use("ggplot")
 
